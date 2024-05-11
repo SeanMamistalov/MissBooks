@@ -8,3 +8,6 @@
 @import "base/layout.css";
 
 /* Components */
+@import "RootCmp.css";
+@import "cmps/Home.css";
+@import "cmps/About.css";

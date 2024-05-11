@@ -1,14 +1,20 @@
-import { LongTxt } from "./LongTxt.jsx"
-
 export function BookPreview({ book }) {
-    const { listPrice } = book
-
-    return <article className='book-prev'>
-        <h3>{book.title}</h3>
-        <img src={book.thumbnail} alt="" />
-        <span><span className='rubric'>Price:</span> {listPrice.amount}</span>
-        <span><span className='rubric'>Currency:</span> {listPrice.currencyCode}</span>
-        <LongTxt txt={book.description} />
-    </article>
-
+    const defaultImageSrc = 'assets/booksimages/default-image.jpg'
+    return (
+        <article className="book-preview">
+            <h3>Title: {book.title}</h3>
+            <p>
+                Price: {book.listPrice.amount}<br />
+                Currency Code: {book.listPrice.currencyCode}<br />
+                On Sale: {book.listPrice.isOnSale ? 'Yes' : 'No'}
+            </p>
+            <img
+                src={`assets/booksimages/${book.title}.jpg`}
+                alt=""
+                onError={(e) => {
+                    e.target.src = defaultImageSrc
+                }}
+            />
+        </article>
+    );
 }

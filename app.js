@@ -1,3 +1,4 @@
+const { render } = ReactDOM;
 import { RootCmp } from './RootCmp.jsx'
 
 const elContainer = document.getElementById('root')

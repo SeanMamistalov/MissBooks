@@ -1,11 +1,9 @@
 import { bookService } from "../services/book.service.js"
 const { useParams, useNavigate } = ReactRouter
-
 const { useState, useEffect } = React
 
 export function BookEdit() {
-    const [book, setBook] = useState(booksService.getEmptyBook())
-
+    const [book, setBook] = useState(bookService.getEmptyBook())
     const params = useParams()
     const navigate = useNavigate()
     console.log('book:', book)
@@ -13,13 +11,13 @@ export function BookEdit() {
     useEffect(() => {
         if (!params.bookId) return
 
-        booksService.get(params.bookId)
+        bookService.get(params.bookId)
             .then(setBook)
     }, [])
 
     function onSave(ev) {
         ev.preventDefault()
-        booksService.save(book)
+        bookervice.save(book)
             .then(() => navigate('/book'))
             .catch(() => {
                 alert('Couldnt save book')

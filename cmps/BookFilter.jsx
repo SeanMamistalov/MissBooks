@@ -1,43 +1,27 @@
-const { useState, useEffect } = React
+const { useEffect, useState, useRef } = React
 
-export function BookFilter({ filterBy, onFilter }){
-    const [ filterByToEdit, setFilterByToEdit ] = useState(filterBy)
+export function BookFilter({ filterBy, onFilterBy }) {
+    
+    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
+    const initialFilterBy = useRef(filterBy)
+
     useEffect(() => {
-        onFilter(filterByToEdit)
+        onFilterBy(filterByToEdit)
     }, [filterByToEdit])
-    function handleChange({ target }){
-        const { name,type } =target
-        const value = (type === 'number') ? +target.value : target.value
-        setFilterByToEdit(prevFilterBy => ({...prevFilterBy, [name]: value}))
+
+    function handleChange({ target }) {
+        const { name, type } = target
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, [name]: type === 'number' ? +target.value : target.value }))
     }
-    return (
-        <section className="book-filter">
-            <h3>Filter</h3>
-            <input
-                onChange={handleChange}
-                value={filterByToEdit.txt}
-                name="txt"
-                type="text"
-                placeholder="Title"
-                className="filter-input"
-            />
-            <input
-                onChange={handleChange}
-                value={filterByToEdit.minPrice}
-                name="minPrice"
-                type="number"
-                placeholder="Price"
-                className="filter-input"
-            />
-        </section>
-    )
+
+    function reset() {
+        setFilterByToEdit(initialFilterBy.current)
+    }
+
+    return <section className='books-filter'>
+        <h3>Filter</h3>
+        <input onChange={handleChange} value={filterByToEdit.title} type="text" name='title' placeholder='Insert book name' />
+        <input onChange={handleChange} value={filterByToEdit.minPrice} type="number" name='minPrice' placeholder='Insert book price' />
+        <button onClick={reset}>Reset</button>
+    </section>
 }
-
-
-
-
-
-
-
-
-
